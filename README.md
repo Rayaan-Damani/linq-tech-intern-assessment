@@ -56,7 +56,7 @@ This was my first time working with:
 - Grafana dashboard configuration
 - Generating realistic sample data
 
-The hardest part was definitely getting all the pieces to talk to each other properly, especially the Grafana datasource configuration. I did some AI and videos to guide me. I hope this is okay, as I am assuming that using these resources in office would be normal and encouraged. I hope this also displayed my ability to being a quick learner. 
+The hardest part was definitely getting all the pieces to talk to each other properly, especially the Grafana datasource configuration. I did use some videos to guide me. I hope this is okay, as I am assuming that using these resources in office would be normal and encouraged. I hope this also displayed my ability to being a quick learner. 
 
 ## Requirements Met
 
