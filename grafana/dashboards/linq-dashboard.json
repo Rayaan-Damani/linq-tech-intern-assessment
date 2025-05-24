@@ -1,0 +1,793 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": null, \"total\": {\"$sum\": \"$value\"}}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Revenue",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$count\": \"total_transactions\"}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Transactions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": null, \"avg_value\": {\"$avg\": \"$value\"}}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Average Order Value",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 3
+              },
+              {
+                "color": "green",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": null, \"total\": {\"$sum\": 1}, \"returns\": {\"$sum\": {\"$cond\": [\"$is_return\", 1, 0]}}}}, {\"$project\": {\"return_rate\": {\"$multiply\": [{\"$divide\": [\"$returns\", \"$total\"]}, 100]}}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Return Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": {\"$dateToString\": {\"format\": \"%Y-%m-%d\", \"date\": \"$timestamp\"}}, \"daily_revenue\": {\"$sum\": \"$value\"}}}, {\"$sort\": {\"_id\": 1}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Daily Revenue Trend",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          },
+          "mappings": [],
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "id": 6,
+      "options": {
+        "displayLabels": ["percent"],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": ["value"]
+        },
+        "pieType": "pie",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": \"$category\", \"revenue\": {\"$sum\": \"$value\"}}}, {\"$sort\": {\"revenue\": -1}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Revenue by Category",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 7,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": \"$region\", \"total_sales\": {\"$sum\": \"$value\"}}}, {\"$sort\": {\"total_sales\": -1}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Sales by Region",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "revenue"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "gradient"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "units_sold"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "revenue"
+          }
+        ]
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}, \"is_return\": false}}, {\"$group\": {\"_id\": {\"category\": \"$category\", \"product\": \"$product\"}, \"revenue\": {\"$sum\": \"$value\"}, \"units_sold\": {\"$sum\": \"$quantity\"}, \"transactions\": {\"$sum\": 1}}}, {\"$project\": {\"_id\": 0, \"category\": \"$_id.category\", \"product\": \"$_id.product\", \"revenue\": {\"$round\": [\"$revenue\", 2]}, \"units_sold\": 1, \"transactions\": 1}}, {\"$sort\": {\"revenue\": -1}}, {\"$limit\": 10}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Products",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$project\": {\"hour\": {\"$hour\": \"$timestamp\"}, \"value\": 1}}, {\"$group\": {\"_id\": \"$hour\", \"avg_sales\": {\"$avg\": \"$value\"}, \"count\": {\"$sum\": 1}}}, {\"$sort\": {\"_id\": 1}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Sales by Hour of Day",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mongodb-datasource",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "tooltip": false,
+              "viz": false,
+              "legend": false
+            }
+          },
+          "mappings": [],
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "id": 10,
+      "options": {
+        "displayLabels": ["name", "percent"],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": ["value", "percent"]
+        },
+        "pieType": "donut",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "collection": "sales_data",
+          "database": "linq_analytics",
+          "datasource": {
+            "type": "mongodb-datasource",
+            "uid": "${datasource}"
+          },
+          "query": "[{\"$match\": {\"timestamp\": {\"$gte\": {\"$date\": \"$__from\"}, \"$lte\": {\"$date\": \"$__to\"}}}}, {\"$group\": {\"_id\": \"$customer_type\", \"count\": {\"$sum\": 1}, \"revenue\": {\"$sum\": \"$value\"}}}, {\"$project\": {\"_id\": 0, \"customer_type\": \"$_id\", \"percentage\": {\"$round\": [\"$revenue\", 2]}}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Revenue by Customer Type",
+      "type": "piechart"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["sales", "analytics", "mongodb"],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "MongoDB-Local",
+          "value": "MongoDB-Local"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Datasource",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "mongodb-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Linq Sales Analytics",
+  "uid": "linq-sales-dashboard",
+  "version": 1,
+  "weekStart": ""
+}

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: linq-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=linq_analytics
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - linq-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/linq_analytics --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Grafana Visualization
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: linq-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-mongodb-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - linq-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  # Python Application Container
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: linq-python
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/
+    volumes:
+      - .:/app
+    networks:
+      - linq-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    command: tail -f /dev/null  # Keep container running
+
+volumes:
+  mongodb_data:
+  grafana_data:
+
+networks:
+  linq-network:
+    driver: bridge
